@@ -1,0 +1,9 @@
+*.apk
+*.pdb
+*.mdb
+*.flag
+test/TestApp/TestApp/TestApp/bin/Debug/*
+test/TestApp/TestApp/TestApp/obj/*
+test/TestApp/TestApp/TestApp.Android/bin/Debug/*
+test/TestApp/TestApp/TestApp.Android/obj/*
+test/TestApp/TestApp/TestApp.iOS/*
