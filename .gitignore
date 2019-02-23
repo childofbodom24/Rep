@@ -7,3 +7,7 @@ test/TestApp/TestApp/TestApp/obj/*
 test/TestApp/TestApp/TestApp.Android/bin/Debug/*
 test/TestApp/TestApp/TestApp.Android/obj/*
 test/TestApp/TestApp/TestApp.iOS/*
+test/TestPrismApp/TestPrismApp/TestPrismApp/bin/Debug/*
+test/TestPrismApp/TestPrismApp/TestPrismApp/obj/*
+test/TestPrismApp/TestPrismApp/TestPrismApp.Android/bin/Debug/*
+test/TestPrismApp/TestPrismApp/TestPrismApp.Android/obj/*
