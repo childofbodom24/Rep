@@ -1,0 +1,14 @@
+C:\Users\user\Documents\GitHub\Rep\test\TestPrismApp\TestPrismModule\bin\Debug\netstandard2.0\TestPrismModule.deps.json
+C:\Users\user\Documents\GitHub\Rep\test\TestPrismApp\TestPrismModule\bin\Debug\netstandard2.0\TestPrismModule.dll
+C:\Users\user\Documents\GitHub\Rep\test\TestPrismApp\TestPrismModule\bin\Debug\netstandard2.0\TestPrismModule.pdb
+C:\Users\user\Documents\GitHub\Rep\test\TestPrismApp\TestPrismModule\obj\Debug\netstandard2.0\TestPrismModule.csprojAssemblyReference.cache
+C:\Users\user\Documents\GitHub\Rep\test\TestPrismApp\TestPrismModule\obj\Debug\netstandard2.0\Views\ViewA.xaml.g.cs
+C:\Users\user\Documents\GitHub\Rep\test\TestPrismApp\TestPrismModule\obj\Debug\netstandard2.0\TestPrismModule.csproj.CoreCompileInputs.cache
+C:\Users\user\Documents\GitHub\Rep\test\TestPrismApp\TestPrismModule\obj\Debug\netstandard2.0\TestPrismModule.AssemblyInfoInputs.cache
+C:\Users\user\Documents\GitHub\Rep\test\TestPrismApp\TestPrismModule\obj\Debug\netstandard2.0\TestPrismModule.AssemblyInfo.cs
+C:\Users\user\Documents\GitHub\Rep\test\TestPrismApp\TestPrismModule\obj\Debug\netstandard2.0\TestPrismModule.dll
+C:\Users\user\Documents\GitHub\Rep\test\TestPrismApp\TestPrismModule\obj\Debug\netstandard2.0\TestPrismModule.pdb
+C:\Users\user\Documents\GitHub\Rep\test\TestPrismApp\TestPrismModule\bin\Debug\netstandard2.0\ClassLibrary1.dll
+C:\Users\user\Documents\GitHub\Rep\test\TestPrismApp\TestPrismModule\bin\Debug\netstandard2.0\ClassLibrary1.pdb
+C:\Users\user\Documents\GitHub\Rep\test\TestPrismApp\TestPrismModule\obj\Debug\netstandard2.0\TestPrismModule.csproj.CopyComplete
+C:\Users\user\Documents\GitHub\Rep\test\TestPrismApp\TestPrismModule\obj\Debug\netstandard2.0\XamlC.stamp
