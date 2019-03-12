@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cnv="clr-namespace:Make10.Converters"
+             x:Class="Make10.Views.MainPage"
+             x:Name="content">
+    <ContentPage.Resources>
+        <cnv:ConverterNegative x:Key="converterNegative"/>
+        <Style TargetType="Button" x:Key="menuButtonStyle">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="FontSize" Value="Large" />
+            <Setter Property="HorizontalOptions" Value="Start" />
+            <Setter Property="WidthRequest" Value="45" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid>
+        <StackLayout BackgroundColor="AliceBlue">
+            <Grid BackgroundColor="LightBlue">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Text="Make10" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FontSize="Large" />
+                <Button Grid.Column="1" Text="⊕" Style="{StaticResource menuButtonStyle}" Command="{Binding AddUser}" />
+                <Button Grid.Column="2" Text="⊖" Style="{StaticResource menuButtonStyle}" Command="{Binding DeleteUser}" />
+                <Button Grid.Column="3" Text="✎" Style="{StaticResource menuButtonStyle}" Command="{Binding EditUser}" />
+                <!--<Button Grid.Column="4" Text="📉" Style="{StaticResource menuButtonStyle}" />-->
+            </Grid>
+            <ListView ItemsSource="{Binding ResultRecords}" SelectionMode="Single" SelectedItem="{Binding SelectedRecord}" RowHeight="50">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Margin="5" HorizontalOptions="FillAndExpand" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding Key.Name}" Margin="10" VerticalOptions="Center" />
+                                <Button Grid.Column="1" 
+                                        Text="Start" 
+                                        Command="{Binding Source={x:Reference content}, Path=BindingContext.StartTimeAttack}" 
+                                        CommandParameter="{Binding Key}" 
+                                        IsVisible="{Binding Value.Completed, Converter={StaticResource converterNegative}}"/>
+                                <Label Grid.Column="1" Text="{Binding Value.ResultTimeText, StringFormat='Result:{0}'}" IsVisible="{Binding Value.Completed}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+
+        <Grid IsVisible="{Binding IsEditing}">
+            <Grid BackgroundColor="Gray" Opacity="0.8"  />
+            <Frame BorderColor="LightBlue" Margin="20" HeightRequest="200" Opacity="1.0">
+                <Grid Margin="30" HorizontalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Name" VerticalOptions="End" />
+                    <Entry x:Name="nameEntry" Grid.Row="0" Grid.Column="1" Text="{Binding EditUserName}" Placeholder="(Input name)" HorizontalOptions="FillAndExpand" />
+                    <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalOptions="Center" Margin="10">
+                        <Button Text="OK" Command="{Binding EditEnd}" CommandParameter="OK">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button"
+                                        Binding="{Binding Source={x:Reference nameEntry},
+                                        Path=Text.Length}"
+                                        Value="0">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <Button Text="CANCEL" Command="{Binding EditEnd}" CommandParameter="CANCEL" />
+                    </StackLayout>
+                </Grid>
+            </Frame>
+        </Grid>
+    </Grid>
+</ContentPage>

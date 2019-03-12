@@ -47,7 +47,6 @@ namespace TestPrismApp
             containerRegistry.RegisterInstance<IContainerProvider>(Container);
 
             this.containerRegistry = containerRegistry;
-
         }
     }
 }

@@ -180,7 +180,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ゆたか\\.nuget\\packages\\": {},
+    "C:\\Users\\user\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -189,14 +189,14 @@
       "projectUniqueName": "C:\\Users\\user\\Documents\\GitHub\\Rep\\test\\TestPrismApp\\ClassLibrary1\\ClassLibrary1.csproj",
       "projectName": "ClassLibrary1",
       "projectPath": "C:\\Users\\user\\Documents\\GitHub\\Rep\\test\\TestPrismApp\\ClassLibrary1\\ClassLibrary1.csproj",
-      "packagesPath": "C:\\Users\\ゆたか\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\user\\Documents\\GitHub\\Rep\\test\\TestPrismApp\\ClassLibrary1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\ゆたか\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

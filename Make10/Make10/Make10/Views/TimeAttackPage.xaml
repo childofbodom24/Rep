@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:ctrl="clr-namespace:Make10.Controls"
+             xmlns:cnv="clr-namespace:Make10.Converters"
+             x:Class="Make10.Views.TimeAttackPage"
+             BackgroundColor="LightBlue">
+    <ContentPage.Resources>
+        <cnv:ConverterNegative x:Key="converterNegative"/>
+    </ContentPage.Resources>
+    <Grid>
+        <Image x:Name="bg" />
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="10">
+            <Label Text="{Binding UserName}" FontSize="Large" Margin="0,0,0,30" HorizontalOptions="Center" />
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Text="Answer:" VerticalTextAlignment="End" HorizontalTextAlignment="End" />
+                <Label Grid.Column="1" Text="{Binding Answer}" FontSize="Large" WidthRequest="100" HorizontalTextAlignment="End" BackgroundColor="DarkBlue" TextColor="White"/>
+            </Grid>
+            <Grid>
+                <Frame BorderColor="Green">
+                    <ctrl:ItemsControl ItemsSource="{Binding Numbers}" IsEnabled="{Binding TurnToInputNumber}">
+                        <ctrl:ItemsControl.ItemsPanel>
+                            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal"/>
+                        </ctrl:ItemsControl.ItemsPanel>
+                        <ctrl:ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Button Text="{Binding Name}" Command="{Binding Command}" HeightRequest="90" WidthRequest="50" FontSize="Large" Margin="10" />
+                                </ViewCell>
+                            </DataTemplate>
+                        </ctrl:ItemsControl.ItemTemplate>
+                    </ctrl:ItemsControl>
+                </Frame>
+                <Frame BackgroundColor="Gray" Opacity="0.5" IsVisible="{Binding TurnToInputNumber, Converter={StaticResource converterNegative}}" />
+            </Grid>
+            <Grid>
+                <ctrl:ItemsControl ItemsSource="{Binding Operators}">
+                    <ctrl:ItemsControl.ItemsPanel>
+                        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal"/>
+                    </ctrl:ItemsControl.ItemsPanel>
+                    <ctrl:ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Button Text="{Binding Name}" Command="{Binding Command}" HeightRequest="45" WidthRequest="45" />
+                            </ViewCell>
+                        </DataTemplate>
+                    </ctrl:ItemsControl.ItemTemplate>
+                </ctrl:ItemsControl>
+            </Grid>
+            <Button Text="Clear" Command="{Binding Clear}" />
+            <Label Text="{Binding ElapsedTimeText, StringFormat='Time:{0}'}" HorizontalTextAlignment="Center" />
+
+            <ctrl:ItemsControl x:Name="resultRecordsItemsControl" ItemsSource="{Binding ResultRecord.Items}">
+                <ctrl:ItemsControl.ItemsPanel>
+                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal"/>
+                </ctrl:ItemsControl.ItemsPanel>
+                <ctrl:ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal">
+                                <Label Text="{Binding Id}" VerticalTextAlignment="End" />
+                                <Label Text=":"  VerticalTextAlignment="End" />
+                                <Label x:Name="n" Text="{Binding TimeText}" Margin="0,0,10,0" FontSize="Large" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ctrl:ItemsControl.ItemTemplate>
+            </ctrl:ItemsControl>
+        </StackLayout>
+        <Label x:Name="startLabel" FontSize="Large" Text="Start" IsVisible="False" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="PaleVioletRed" />
+        <Label x:Name="correctLabel" FontSize="Large" Text="Correct" IsVisible="False" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="LawnGreen" />
+    </Grid>
+</ContentPage>
