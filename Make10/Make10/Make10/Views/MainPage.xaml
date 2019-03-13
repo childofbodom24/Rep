@@ -29,7 +29,7 @@
                 <Button Grid.Column="3" Text="✎" Style="{StaticResource menuButtonStyle}" Command="{Binding EditUser}" />
                 <!--<Button Grid.Column="4" Text="📉" Style="{StaticResource menuButtonStyle}" />-->
             </Grid>
-            <ListView ItemsSource="{Binding ResultRecords}" SelectionMode="Single" SelectedItem="{Binding SelectedRecord}" RowHeight="50">
+            <ListView ItemsSource="{Binding ResultRecords}" SelectionMode="Single" SelectedItem="{Binding SelectedRecord}" RowHeight="80">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -37,19 +37,32 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding Key.Name}" Margin="10" VerticalOptions="Center" />
-                                <Button Grid.Column="1" 
-                                        Text="Start" 
+                                <Label Grid.Column="0" Text="{Binding Key.Name}" Margin="10" VerticalOptions="Center" FontSize="Large" />
+                                <Label Grid.Column="1" Text="{Binding Value.WinCountText}" Margin="10" VerticalOptions="Center" HorizontalTextAlignment="Start" TextColor="YellowGreen" FontSize="Large" />
+                                <StackLayout Orientation="Horizontal" Grid.Column="2">
+                                    <Button Text="▷ START" 
                                         Command="{Binding Source={x:Reference content}, Path=BindingContext.StartTimeAttack}" 
                                         CommandParameter="{Binding Key}" 
                                         IsVisible="{Binding Value.Completed, Converter={StaticResource converterNegative}}"/>
-                                <Label Grid.Column="1" Text="{Binding Value.ResultTimeText, StringFormat='Result:{0}'}" IsVisible="{Binding Value.Completed}" />
+                                    <Label VerticalOptions="Center" 
+                                       HorizontalOptions="Center"
+                                       IsVisible="{Binding Value.Completed}"
+                                       Text="TIME:"/>
+                                    <Label VerticalOptions="Center" 
+                                       HorizontalOptions="Center" 
+                                       Text="{Binding Value.ResultTimeText}" 
+                                       FontSize="Large"
+                                       TextColor="DarkGreen"
+                                       IsVisible="{Binding Value.Completed}" />
+                                </StackLayout>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button x:Name="resetResult" Text="↺ RESET" Command="{Binding ResetResult}" IsVisible="{Binding Source={x:Reference resetResult}, Path=IsEnabled}" />
         </StackLayout>
 
         <Grid IsVisible="{Binding IsEditing}">
@@ -70,8 +83,7 @@
                         <Button Text="OK" Command="{Binding EditEnd}" CommandParameter="OK">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button"
-                                        Binding="{Binding Source={x:Reference nameEntry},
-                                        Path=Text.Length}"
+                                        Binding="{Binding Source={x:Reference nameEntry}, Path=Text.Length}"
                                         Value="0">
                                     <Setter Property="IsEnabled" Value="False" />
                                 </DataTrigger>

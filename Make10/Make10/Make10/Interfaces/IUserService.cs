@@ -10,5 +10,6 @@ namespace Make10.Interfaces
     {
         User PlayingUser { get; set; }
         ObservableCollection<User> Users { get; }
+        void Save();
     }
 }

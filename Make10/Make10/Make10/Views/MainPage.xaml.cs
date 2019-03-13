@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Make10.Extensions;
+using Make10.Models;
+using Make10.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +15,7 @@ namespace Make10.Views
         public MainPage()
         {
             InitializeComponent();
+            this.SubscribeDisplayAlertMessage<MainPageViewModel>((s,e)=>this.DisplayAlert(e));
         }
     }
 }

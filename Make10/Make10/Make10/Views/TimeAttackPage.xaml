@@ -20,7 +20,7 @@
                     <ColumnDefinition Width="120"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Text="Answer:" VerticalTextAlignment="End" HorizontalTextAlignment="End" />
+                <Label Grid.Column="0" Text="ANSWER:" VerticalTextAlignment="End" HorizontalTextAlignment="End" />
                 <Label Grid.Column="1" Text="{Binding Answer}" FontSize="Large" WidthRequest="100" HorizontalTextAlignment="End" BackgroundColor="DarkBlue" TextColor="White"/>
             </Grid>
             <Grid>
@@ -54,7 +54,7 @@
                     </ctrl:ItemsControl.ItemTemplate>
                 </ctrl:ItemsControl>
             </Grid>
-            <Button Text="Clear" Command="{Binding Clear}" />
+            <Button Text="CLEAR" Command="{Binding Clear}"/>
             <Label Text="{Binding ElapsedTimeText, StringFormat='Time:{0}'}" HorizontalTextAlignment="Center" />
 
             <ctrl:ItemsControl x:Name="resultRecordsItemsControl" ItemsSource="{Binding ResultRecord.Items}">
@@ -67,14 +67,14 @@
                             <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal">
                                 <Label Text="{Binding Id}" VerticalTextAlignment="End" />
                                 <Label Text=":"  VerticalTextAlignment="End" />
-                                <Label x:Name="n" Text="{Binding TimeText}" Margin="0,0,10,0" FontSize="Large" />
+                                <Label Text="{Binding TimeText}" Margin="0,0,10,0" FontSize="Large" PropertyChanged="ExecuteTimeTextAnimation" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ctrl:ItemsControl.ItemTemplate>
             </ctrl:ItemsControl>
         </StackLayout>
-        <Label x:Name="startLabel" FontSize="Large" Text="Start" IsVisible="False" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="PaleVioletRed" />
-        <Label x:Name="correctLabel" FontSize="Large" Text="Correct" IsVisible="False" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="LawnGreen" />
+        <Label x:Name="startLabel" FontSize="Large" Text="START" IsVisible="False" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="PaleVioletRed" />
+        <Label x:Name="correctLabel" FontSize="Large" Text="CORRECT" IsVisible="False" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="LawnGreen" />
     </Grid>
 </ContentPage>

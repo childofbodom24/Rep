@@ -3,6 +3,7 @@ using Make10.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 
 namespace Make10.Services
@@ -11,12 +12,22 @@ namespace Make10.Services
     {
         public UserService()
         {
-            this.Users.Add(new User() { Name = "TAIGA" });
-            this.Users.Add(new User() { Name = "YUTAKA" });
+            this.Users = JsonSerializer.Deserialize<ObservableCollection<User>>("Users.json");
+            if (this.Users == null || this.Users.Count() == 0)
+            {
+                this.Users = new ObservableCollection<User>();
+                this.Users.Add(new User() { Name = "TAIGA" });
+                this.Users.Add(new User() { Name = "YUTAKA" });
+            }
         }
 
         public User PlayingUser { get; set; }
 
-        public ObservableCollection<User> Users { get; } = new ObservableCollection<User>();
+        public ObservableCollection<User> Users { get; } 
+
+        public void Save()
+        {
+            JsonSerializer.Serialize(this.Users, "Users.json");
+        }
     }
 }

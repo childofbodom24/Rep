@@ -7,7 +7,7 @@ namespace Make10.Interfaces
 {
     public interface IResultService
     {
-        Action ResultUpdated { get; set; }
         IDictionary<User, ResultRecord> ResultRecords { get; }
+        void UpdateRanking();
     }
 }

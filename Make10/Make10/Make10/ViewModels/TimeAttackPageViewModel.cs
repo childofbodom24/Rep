@@ -57,11 +57,16 @@ namespace Make10.ViewModels
                 this.Answer = Calculator.Calculate(this.inputHistory.Select(nc => nc.Name));
                 if(this.Answer == "10" && this.Numbers.All(n=>!n.IsEnabled))
                 {
-                    this.ResultRecord.Items.ElementAt(this.resultCount++).Update(this.elapsedTime, this.Numbers.Select(n=> int.Parse(n.Name)).ToArray());
-                    if (this.resultCount >= this.ResultRecord.Items.Count())
+                    this.ResultRecord.Items.ElementAt(this.resultCount++).Update(this.elapsedTime, this.Numbers.Select(n => int.Parse(n.Name)).ToArray());
+
+                    if (this.ResultRecord.Completed)
                     {
                         this.resultCount = 0;
-                        navigationService.GoBackAsync();
+                        resultService.UpdateRanking();
+                        this.DisplayNotification<TimeAttackPageViewModel>("終了", $"結果は{this.ResultRecord.ResultTimeText}秒でした", () =>
+                        {
+                            navigationService.GoBackAsync();
+                        });
                     }
                     else
                     {
@@ -73,28 +78,7 @@ namespace Make10.ViewModels
 
             this.Clear = new DelegateCommand(() =>
             {
-                if (true) // for debug
-                {
-                    this.ResultRecord.Items.ElementAt(this.resultCount++).Update(this.elapsedTime, this.Numbers.Select(n => int.Parse(n.Name)).ToArray());
-
-                    if (this.ResultRecord.Completed)
-                    {
-                        if (resultService.ResultUpdated != null)
-                        {
-                            resultService.ResultUpdated();
-                        }
-
-                        this.resultCount = 0;
-                        navigationService.GoBackAsync();
-                    }
-                    else
-                    {
-                        this.RefreshNumbers();
-                        this.OnClear();
-                    }
-                }
-                
-                this.OnClear();
+                 this.OnClear();
             });
         }
 
@@ -143,6 +127,8 @@ namespace Make10.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+
+            this.resultCount = 0;
 
             this.RefreshNumbers();
 

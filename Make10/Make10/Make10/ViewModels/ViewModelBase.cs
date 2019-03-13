@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using Xamarin.Forms;
 
 namespace Make10.ViewModels
 {
@@ -13,11 +14,39 @@ namespace Make10.ViewModels
     {
         protected INavigationService NavigationService { get; private set; }
 
-        private string _title;
-        public string Title
+        protected void DisplayAlert<T>(AlertParameter parameters) where T : class
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
+            MessagingCenter.Send(this as T, "DisplayAlert", parameters);
+        }
+
+        protected void DisplayNotification<T>(string title, string message, Action ok) where T : class
+        {
+            this.DisplayAlert<T>(new AlertParameter()
+            {
+                Title = title,
+                Message = message,
+                Accept = "",
+                Cancel = "OK",
+                Action = result =>
+                {
+                    ok?.Invoke();
+                }
+            });
+        }
+        protected void DisplayConfirmation<T>(string title, string message, Action ok, Action cancel) where T : class
+        {
+            this.DisplayAlert<T>(new AlertParameter()
+            {
+                Title = title,
+                Message = message,
+                Accept = "OK",
+                Cancel = "CANCEL",
+                Action = result =>
+                {
+                    if (result) ok?.Invoke();
+                    else cancel?.Invoke();
+                }
+            });
         }
 
         public ViewModelBase(INavigationService navigationService)
