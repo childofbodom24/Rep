@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Make10.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -35,13 +36,14 @@ namespace Make10.Models
 
         public bool Completed => this.items.All(i => i.Time != TimeSpan.Zero);
 
-        public TimeSpan ResultTime => new TimeSpan(this.items.Select(i => i.Time.Ticks).Sum());
+        public TimeSpan ResultTime => new TimeSpan(this.items.Select(i => i.Time.Ticks).Sum()) + TimeSpan.FromSeconds(this.Handicap);
 
         public string ResultTimeText
         {
             get
             {
-                var text = this.Completed ? this.ResultTime.ToString(@"s\.f") : "--.-";
+                var handicapText = this.Handicap == 0 ? string.Empty : $"({this.Handicap.ToString("+#;-#;")})";
+                var text = this.Completed ? this.ResultTime.TotalSeconds.ToString("F1") + handicapText : "-----";
                 return this.Rank == 1 ? $"☆{text}" : text;
             }
         }
@@ -55,6 +57,7 @@ namespace Make10.Models
         }
 
         public int Rank { get; set; }
+        public int Handicap { get; set; }
 
         public void Reset()
         {

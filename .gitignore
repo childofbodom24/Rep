@@ -13,6 +13,8 @@ test/TestPrismApp/TestPrismApp/TestPrismApp/obj/*
 test/TestPrismApp/TestPrismApp/TestPrismApp.Android/bin/Debug/*
 test/TestPrismApp/TestPrismApp/TestPrismApp.Android/obj/*
 Make10/Make10/Make10/bin/Debug/*
+Make10/Make10/Make10/bin/Release/*
 Make10/Make10/Make10/obj/*
 Make10/Make10/Make10.Android/bin/Debug/*
+Make10/Make10/Make10.Android/bin/Release/*
 Make10/Make10/Make10.Android/obj/*

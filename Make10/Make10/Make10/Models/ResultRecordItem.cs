@@ -1,4 +1,5 @@
-﻿using Make10.ViewModels;
+﻿using Make10.Extensions;
+using Make10.ViewModels;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,7 @@ namespace Make10.Models
         {
             get
             {
-                return this.time == TimeSpan.Zero ? "--.---" : this.time.ToString(@"s\.f");
+                return this.time == TimeSpan.Zero ? "-----" : this.time.TotalSeconds.ToString("F1");
             }
         }
 

@@ -24,12 +24,12 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Text="Make10" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FontSize="Large" />
-                <Button Grid.Column="1" Text="⊕" Style="{StaticResource menuButtonStyle}" Command="{Binding AddUser}" />
-                <Button Grid.Column="2" Text="⊖" Style="{StaticResource menuButtonStyle}" Command="{Binding DeleteUser}" />
-                <Button Grid.Column="3" Text="✎" Style="{StaticResource menuButtonStyle}" Command="{Binding EditUser}" />
+                <Button Grid.Column="1" Text="👤⊕" Style="{StaticResource menuButtonStyle}" Command="{Binding AddUser}" />
+                <Button Grid.Column="2" Text="👤⊖" Style="{StaticResource menuButtonStyle}" Command="{Binding DeleteUser}" />
+                <Button Grid.Column="3" Text="👤✎" Style="{StaticResource menuButtonStyle}" Command="{Binding EditUser}" />
                 <!--<Button Grid.Column="4" Text="📉" Style="{StaticResource menuButtonStyle}" />-->
             </Grid>
-            <ListView ItemsSource="{Binding ResultRecords}" SelectionMode="Single" SelectedItem="{Binding SelectedRecord}" RowHeight="80">
+            <ListView ItemsSource="{Binding ResultRecords}" SelectionMode="Single" SelectedItem="{Binding SelectedRecord, Mode=TwoWay}" RowHeight="80">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -72,15 +72,18 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Text="Name" VerticalOptions="End" />
-                    <Entry x:Name="nameEntry" Grid.Row="0" Grid.Column="1" Text="{Binding EditUserName}" Placeholder="(Input name)" HorizontalOptions="FillAndExpand" />
-                    <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalOptions="Center" Margin="10">
-                        <Button Text="OK" Command="{Binding EditEnd}" CommandParameter="OK">
+                    <Label Grid.Row="0" Grid.Column="0" Text="名前" VerticalOptions="End" />
+                    <Entry x:Name="nameEntry" Grid.Row="0" Grid.Column="1" Text="{Binding UserForEdit.Name}" Placeholder="(Input name)" HorizontalOptions="FillAndExpand" />
+                    <Label Grid.Row="1" Grid.Column="0" Text="ハンデ" VerticalOptions="End" />
+                    <Picker Grid.Row="1" Grid.Column="1" ItemsSource="{Binding HandicapList}" SelectedItem="{Binding UserForEdit.Handicap}" HorizontalOptions="FillAndExpand" />
+                    <StackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalOptions="Center" Margin="10">
+                        <Button Text="OK" Command="{Binding EditEnd}" CommandParameter="OK" IsEnabled="False">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button"
                                         Binding="{Binding Source={x:Reference nameEntry}, Path=Text.Length}"

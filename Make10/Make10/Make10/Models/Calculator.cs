@@ -43,14 +43,14 @@ namespace Make10.Models
                     numbers[i] = r.Next(1, 10);
                 }
 
-                if(ValidateNumbers(numbers, operatorsCombination))
+                if(ValidateNumbers(numbers, operatorsCombination) != null)
                 {
                     return numbers;
                 }
             }
         }
 
-        public static bool ValidateNumbers(IEnumerable<int> numbers, IEnumerable<IEnumerable<string>> operatorsCombination = null)
+        public static IEnumerable<string> ValidateNumbers(IEnumerable<int> numbers, IEnumerable<IEnumerable<string>> operatorsCombination = null)
         {
             if(operatorsCombination == null)
             {
@@ -77,12 +77,12 @@ namespace Make10.Models
                 {
                     if (n == 10 && operators.Any(o => o != "＋"))
                     {
-                        return true;
+                        return formula;
                     }
                 }
             }
 
-            return false;
+            return null;
         }
 
         public static string Calculate(IEnumerable<string> formula)
@@ -121,7 +121,7 @@ namespace Make10.Models
             return (answerText.Contains(".")? answer.ToString("F3") : answerText) + ope;
         }
 
-        public static IEnumerable<IEnumerable<int>> CreateNumbersCombination(IEnumerable<int> numbers)
+        private static IEnumerable<IEnumerable<int>> CreateNumbersCombination(IEnumerable<int> numbers)
         {
             var result = new List<IEnumerable<int>>();
             foreach (var n in EnumerateCombination<int>(numbers, numbers.Count(), false))

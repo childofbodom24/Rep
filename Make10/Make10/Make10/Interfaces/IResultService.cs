@@ -8,6 +8,6 @@ namespace Make10.Interfaces
     public interface IResultService
     {
         IDictionary<User, ResultRecord> ResultRecords { get; }
-        void UpdateRanking();
+        void UpdateRanking(User playingUser);
     }
 }

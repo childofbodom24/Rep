@@ -20,7 +20,6 @@ namespace Make10.ViewModels
         private IResultService resultService;
         private bool isEditing;
         private bool forAdd;
-        private string editUserName;
         private KeyValuePair<User, ResultRecord> selectedRecord;
         private KeyValuePair<User, ResultRecord> nullRecord = new KeyValuePair<User, ResultRecord>();
 
@@ -36,22 +35,29 @@ namespace Make10.ViewModels
 
             this.AddUser = new DelegateCommand(() =>
             {
-                this.EditUserName = string.Empty;
+                new User().CopyTo(this.UserForEdit);
                 this.IsEditing = true;
                 this.forAdd = true;
             });
 
             this.DeleteUser = new DelegateCommand(() =>
             {
-                userService.Users.Remove(this.selectedRecord.Key);
-                this.SelectedRecord = this.nullRecord;
-                this.RaisePropertyChanged(() => this.ResultRecords);
-                userService.Save();
+                this.DisplayConfirmation<MainPageViewModel>(
+                       $"{this.selectedRecord.Key.Name}を削除しますか？",
+                       string.Empty,
+                       () =>
+                       {
+                           userService.Users.Remove(this.selectedRecord.Key);
+                           this.SelectedRecord = this.nullRecord;
+                           this.RaisePropertyChanged(() => this.ResultRecords);
+                           userService.Save();
+                       },
+                       () => { });
             }, () => this.selectedRecord.Key != null);
 
             this.EditUser = new DelegateCommand(() =>
             {
-                this.EditUserName = this.selectedRecord.Key.Name;
+                this.selectedRecord.Key.CopyTo(this.UserForEdit);
                 this.IsEditing = true;
                 this.forAdd = false;
             }, () => this.selectedRecord.Key != null);
@@ -60,8 +66,8 @@ namespace Make10.ViewModels
             {
                 if (s == "OK")
                 {
-                    if (forAdd) userService.Users.Add(new User() { Name = this.editUserName });
-                    else this.selectedRecord.Key.Name = this.editUserName;
+                    if (forAdd) userService.Users.Add(this.UserForEdit.Clone());
+                    else this.UserForEdit.CopyTo(this.selectedRecord.Key);
                     userService.Save();
                 }
 
@@ -114,11 +120,7 @@ namespace Make10.ViewModels
             }
         }
 
-        public string EditUserName
-        {
-            get { return editUserName; }
-            set { SetProperty(ref editUserName, value); }
-        }
+        public User UserForEdit { get; } = new User();
 
         public bool IsEditing
         {
@@ -156,9 +158,11 @@ namespace Make10.ViewModels
             private set;
         }
 
+        public IEnumerable<int> HandicapList => Enumerable.Range(0, 51).ToArray();
+
         //public IDictionary<User, ResultRecord> ResultRecords => this.resultService.ResultRecords; //<-これはAdd/DeleteしたときにXamlに反映されない
 
-        public IEnumerable<KeyValuePair<User, ResultRecord>> ResultRecords => this.resultService.ResultRecords.ToArray();
+        public IEnumerable<KeyValuePair<User, ResultRecord>> ResultRecords => this.resultService.ResultRecords.OrderBy(r=>r.Value.ResultTime);
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {

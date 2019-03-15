@@ -1,4 +1,5 @@
-﻿using Make10.Interfaces;
+﻿using Make10.Extensions;
+using Make10.Interfaces;
 using Make10.Models;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -36,6 +37,7 @@ namespace Make10.ViewModels
             {
                 this.elapsedTime = this.elapsedTime.Add(TimeSpan.FromMilliseconds(100));
                 this.RaisePropertyChanged(()=>this.ElapsedTimeText);
+                (this.ShowAnswer as DelegateCommand).RaiseCanExecuteChanged();
             };
 
             this.Numbers = new NameCommand[]
@@ -57,29 +59,24 @@ namespace Make10.ViewModels
                 this.Answer = Calculator.Calculate(this.inputHistory.Select(nc => nc.Name));
                 if(this.Answer == "10" && this.Numbers.All(n=>!n.IsEnabled))
                 {
-                    this.ResultRecord.Items.ElementAt(this.resultCount++).Update(this.elapsedTime, this.Numbers.Select(n => int.Parse(n.Name)).ToArray());
-
-                    if (this.ResultRecord.Completed)
-                    {
-                        this.resultCount = 0;
-                        resultService.UpdateRanking();
-                        this.DisplayNotification<TimeAttackPageViewModel>("終了", $"結果は{this.ResultRecord.ResultTimeText}秒でした", () =>
-                        {
-                            navigationService.GoBackAsync();
-                        });
-                    }
-                    else
-                    {
-                        this.RefreshNumbers();
-                        this.OnClear();
-                    }
+                    this.OnProblemSolved(navigationService);
                 }
             };
 
             this.Clear = new DelegateCommand(() =>
             {
-                 this.OnClear();
+                this.OnClear(clearTime:false);
             });
+
+            this.ShowAnswer = new DelegateCommand(() =>
+               {
+                   var answerFormula = Calculator.ValidateNumbers(this.Numbers.Select(n => int.Parse(n.Name)));
+                   this.DisplayNotification<TimeAttackPageViewModel>(
+                       "答え",
+                       answerFormula == null ? "bug" : string.Join("→", answerFormula.Select(s=>$"[{s}]")),
+                       () => {});
+               },
+            () => this.elapsedTime >= TimeSpan.FromSeconds(200));
         }
 
         public ICommand Clear
@@ -87,9 +84,10 @@ namespace Make10.ViewModels
             get;
             private set;
         }
+        
+        public string ElapsedTimeText => this.elapsedTime.TotalSeconds.ToString("F1");
 
-        // TimeSpanのBindingにてstringFormatが働かなかったのでText用プロパティを分離
-        public string ElapsedTimeText => this.elapsedTime.ToString(@"s\.f");
+        public ICommand ShowAnswer { get; }
 
         public string UserName => this.userService.PlayingUser?.Name;
 
@@ -147,7 +145,7 @@ namespace Make10.ViewModels
             }
         }
 
-        private void OnClear()
+        private void OnClear(bool clearTime = true)
         {
             this.inputHistory.Clear();
             foreach (var n in this.Numbers)
@@ -155,8 +153,11 @@ namespace Make10.ViewModels
                 n.IsEnabled = true;
             }
 
-            this.elapsedTime = TimeSpan.Zero;
-            this.RaisePropertyChanged(() => this.ElapsedTimeText);
+            if (clearTime)
+            {
+                this.elapsedTime = TimeSpan.Zero;
+                this.RaisePropertyChanged(() => this.ElapsedTimeText);
+            }
         }
 
         private void OnPushOperator(NameCommand nc)
@@ -168,6 +169,26 @@ namespace Make10.ViewModels
         {
             nc.IsEnabled = false;
             this.inputHistory.Add(nc);
+        }
+
+        private void OnProblemSolved(INavigationService navigationService)
+        {
+            this.ResultRecord.Items.ElementAt(this.resultCount++).Update(this.elapsedTime, this.Numbers.Select(n => int.Parse(n.Name)).ToArray());
+
+            if (this.ResultRecord.Completed)
+            {
+                this.resultCount = 0;
+                resultService.UpdateRanking(userService.PlayingUser);
+                this.DisplayNotification<TimeAttackPageViewModel>("終了", $"結果は{this.ResultRecord.ResultTimeText}秒でした", () =>
+                {
+                    navigationService.GoBackAsync();
+                });
+            }
+            else
+            {
+                this.RefreshNumbers();
+                this.OnClear();
+            }
         }
     }
 }

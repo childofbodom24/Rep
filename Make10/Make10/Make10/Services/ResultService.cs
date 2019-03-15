@@ -46,10 +46,12 @@ namespace Make10.Services
 
         public IDictionary<User, ResultRecord> ResultRecords { get; } = new Dictionary<User, ResultRecord>();
         
-        public void UpdateRanking()
+        public void UpdateRanking(User playingUser)
         {
             int rank = 1;
-            foreach(var resultRecord in this.ResultRecords.Values.Where(r=>r.Completed).OrderBy(r=>r.ResultTime))
+
+            this.ResultRecords[playingUser].Handicap = playingUser.Handicap;
+            foreach (var resultRecord in this.ResultRecords.Values.Where(r=>r.Completed).OrderBy(r=>r.ResultTime))
             {
                 resultRecord.Rank = rank++;
             }

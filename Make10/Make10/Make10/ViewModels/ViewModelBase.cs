@@ -19,7 +19,7 @@ namespace Make10.ViewModels
             MessagingCenter.Send(this as T, "DisplayAlert", parameters);
         }
 
-        protected void DisplayNotification<T>(string title, string message, Action ok) where T : class
+        protected void DisplayNotification<T>(string title, string message, Action ok) where T : ViewModelBase
         {
             this.DisplayAlert<T>(new AlertParameter()
             {
