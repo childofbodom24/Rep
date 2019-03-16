@@ -49,11 +49,7 @@ namespace Make10.ViewModels
                        string.Empty,
                        () =>
                        {
-                           if(File.Exists(this.selectedRecord.Key.ImageFilePath))
-                           {
-                               File.Delete(this.selectedRecord.Key.ImageFilePath);
-                           }
-
+                           this.selectedRecord.Key.DeleteImageFile();
                            userService.Users.Remove(this.selectedRecord.Key);
                            this.SelectedRecord = this.nullRecord;
                            this.RaisePropertyChanged(() => this.ResultRecords);
@@ -103,20 +99,35 @@ namespace Make10.ViewModels
 
             this.ReadImage = new DelegateCommand<User>(u =>
             {
-                DependencyService.Get<IImageGalleryService>().GetImageStream(stream=>
+                if (File.Exists(u.ImageFilePath))
                 {
-                    var filepath = JsonSerializer.GetApplicationFilePath(u.Name);
-                    using (FileStream destination = File.Open(filepath, FileMode.OpenOrCreate))
+                    this.DisplayConfirmation<MainPageViewModel>(
+                        "画像を削除します。",
+                        "画像を変更したい場合は削除後新しい画像を設定します。",
+                        () => 
+                        {
+                            u.DeleteImageFile();
+                            userService.Save();
+                        },
+                        ()=> { });
+                }
+                else
+                {
+                    DependencyService.Get<IImageGalleryService>().GetImageStream(stream =>
                     {
-                        stream.CopyTo(destination);
-                    }
+                        var filepath = JsonSerializer.GetApplicationFilePath(u.Name);
+                        using (FileStream destination = File.Open(filepath, FileMode.OpenOrCreate))
+                        {
+                            stream.CopyTo(destination);
+                        }
 
-                    if (File.Exists(filepath))
-                    {
-                        u.ImageFilePath = filepath;
-                        userService.Save();
-                    }
-                });
+                        if (File.Exists(filepath))
+                        {
+                            u.ImageFilePath = filepath;
+                            userService.Save();
+                        }
+                    });
+                }
             });
 
             this.resultService = resultService;

@@ -33,14 +33,14 @@ namespace Make10.ViewModels
                 }
             });
         }
-        protected void DisplayConfirmation<T>(string title, string message, Action ok, Action cancel) where T : class
+        protected void DisplayConfirmation<T>(string title, string message, Action ok, Action cancel, string okText = "OK", string cancelText = "CANCEL") where T : class
         {
             this.DisplayAlert<T>(new AlertParameter()
             {
                 Title = title,
                 Message = message,
-                Accept = "OK",
-                Cancel = "CANCEL",
+                Accept = okText,
+                Cancel = cancelText,
                 Action = result =>
                 {
                     if (result) ok?.Invoke();

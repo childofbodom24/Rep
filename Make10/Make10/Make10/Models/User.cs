@@ -50,7 +50,17 @@ namespace Make10.Models
         [JsonIgnore]
         public ImageSource Image
         {
-            get { return ImageSource.FromFile(this.imageFilePath); }
+            get { return File.Exists(this.ImageFilePath)? ImageSource.FromFile(this.imageFilePath) : null; }
+        }
+
+        public void DeleteImageFile()
+        {
+            if(File.Exists(this.imageFilePath))
+            {
+                File.Delete(this.imageFilePath);
+            }
+
+            this.ImageFilePath = null;
         }
 
         public void CopyTo(User user)
