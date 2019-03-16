@@ -18,3 +18,8 @@ Make10/Make10/Make10/obj/*
 Make10/Make10/Make10.Android/bin/Debug/*
 Make10/Make10/Make10.Android/bin/Release/*
 Make10/Make10/Make10.Android/obj/*
+*.ide
+*.ide
+*.ide-shm
+*.ide-wal
+Make10/.vs/Make10/v15/.suo

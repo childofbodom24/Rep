@@ -16,8 +16,8 @@ namespace Make10.Services
             if (this.Users == null || this.Users.Count() == 0)
             {
                 this.Users = new ObservableCollection<User>();
-                this.Users.Add(new User() { Name = "TAIGA" });
-                this.Users.Add(new User() { Name = "YUTAKA" });
+                this.Users.Add(new User(1) { Name = "TAIGA" });
+                this.Users.Add(new User(2) { Name = "YUTAKA" });
             }
         }
 

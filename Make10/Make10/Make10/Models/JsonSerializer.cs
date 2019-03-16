@@ -28,7 +28,7 @@ namespace Make10.Models
             }
         }
 
-        private static string GetApplicationFilePath(string filename)
+        public static string GetApplicationFilePath(string filename)
         {
             var folderpath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             return Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), filename);

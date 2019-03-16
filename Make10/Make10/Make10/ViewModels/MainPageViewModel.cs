@@ -7,6 +7,7 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
@@ -35,7 +36,8 @@ namespace Make10.ViewModels
 
             this.AddUser = new DelegateCommand(() =>
             {
-                new User().CopyTo(this.UserForEdit);
+                var newId = userService.Users.Max(u => u.Id) + 1;
+                new User(newId).CopyTo(this.UserForEdit);
                 this.IsEditing = true;
                 this.forAdd = true;
             });
@@ -47,6 +49,11 @@ namespace Make10.ViewModels
                        string.Empty,
                        () =>
                        {
+                           if(File.Exists(this.selectedRecord.Key.ImageFilePath))
+                           {
+                               File.Delete(this.selectedRecord.Key.ImageFilePath);
+                           }
+
                            userService.Users.Remove(this.selectedRecord.Key);
                            this.SelectedRecord = this.nullRecord;
                            this.RaisePropertyChanged(() => this.ResultRecords);
@@ -94,6 +101,24 @@ namespace Make10.ViewModels
                     () => { });
             }, ()=> resultService.ResultRecords.Values.Any(r=>r.Rank == 1));
 
+            this.ReadImage = new DelegateCommand<User>(u =>
+            {
+                DependencyService.Get<IImageGalleryService>().GetImageStream(stream=>
+                {
+                    var filepath = JsonSerializer.GetApplicationFilePath(u.Name);
+                    using (FileStream destination = File.Open(filepath, FileMode.OpenOrCreate))
+                    {
+                        stream.CopyTo(destination);
+                    }
+
+                    if (File.Exists(filepath))
+                    {
+                        u.ImageFilePath = filepath;
+                        userService.Save();
+                    }
+                });
+            });
+
             this.resultService = resultService;
         }
 
@@ -120,7 +145,7 @@ namespace Make10.ViewModels
             }
         }
 
-        public User UserForEdit { get; } = new User();
+        public User UserForEdit { get; } = new User(0);
 
         public bool IsEditing
         {
@@ -131,31 +156,31 @@ namespace Make10.ViewModels
         public ICommand AddUser
         {
             get;
-            private set;
         }
 
         public ICommand DeleteUser
         {
             get;
-            private set;
         }
 
         public ICommand EditUser
         {
             get;
-            private set;
         }
 
         public ICommand EditEnd
         {
             get;
-            private set;
         }
 
         public ICommand ResetResult
         {
             get;
-            private set;
+        }
+
+        public ICommand ReadImage
+        {
+            get;
         }
 
         public IEnumerable<int> HandicapList => Enumerable.Range(0, 51).ToArray();
