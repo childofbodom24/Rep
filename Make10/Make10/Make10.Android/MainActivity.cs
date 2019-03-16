@@ -15,7 +15,7 @@ using Xamarin.Forms;
 
 namespace Make10.Droid
 {
-    [Activity(Label = "Make10", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Label = "Make10", Icon = "@mipmap/ic_launcher", Theme = "@style/MySplash", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         public static readonly int PickImageId = 1000;
@@ -27,6 +27,8 @@ namespace Make10.Droid
         protected override void OnCreate(Bundle bundle)
         {
             MainActivity.Instance = this;
+            
+            base.SetTheme(Resource.Style.MainTheme);  
 
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
