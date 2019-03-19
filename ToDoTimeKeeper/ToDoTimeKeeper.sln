@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoTimeKeeper", "ToDoTimeKeeper\ToDoTimeKeeper\ToDoTimeKeeper.csproj", "{0193EE3E-4105-4F24-B1CC-325E5EF2EDC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoTimeKeeper.Android", "ToDoTimeKeeper\ToDoTimeKeeper.Android\ToDoTimeKeeper.Android.csproj", "{86F690B7-A6B9-44FD-A040-D3F4ABB6D1C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoTimeKeeper.Infrastructure", "ToDoTimeKeeper\ToDoTimeKeeper.Infrastructure\ToDoTimeKeeper.Infrastructure.csproj", "{4E054CAC-5E81-4F34-8FFC-D3860666362F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0193EE3E-4105-4F24-B1CC-325E5EF2EDC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0193EE3E-4105-4F24-B1CC-325E5EF2EDC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0193EE3E-4105-4F24-B1CC-325E5EF2EDC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0193EE3E-4105-4F24-B1CC-325E5EF2EDC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86F690B7-A6B9-44FD-A040-D3F4ABB6D1C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86F690B7-A6B9-44FD-A040-D3F4ABB6D1C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86F690B7-A6B9-44FD-A040-D3F4ABB6D1C9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{86F690B7-A6B9-44FD-A040-D3F4ABB6D1C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86F690B7-A6B9-44FD-A040-D3F4ABB6D1C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86F690B7-A6B9-44FD-A040-D3F4ABB6D1C9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4E054CAC-5E81-4F34-8FFC-D3860666362F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E054CAC-5E81-4F34-8FFC-D3860666362F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E054CAC-5E81-4F34-8FFC-D3860666362F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E054CAC-5E81-4F34-8FFC-D3860666362F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D80212E0-303E-48EE-9CA9-774708E46CA9}
+	EndGlobalSection
+EndGlobal
