@@ -16,6 +16,7 @@ namespace Make10.ViewModels
 {
 	public class TimeAttackPageViewModel : ViewModelBase
 	{
+        private static readonly TimeSpan timeLimit = TimeSpan.FromMilliseconds(999900);
         private Timer timer;
         private TimeSpan elapsedTime;
         private ObservableCollection<NameCommand> inputHistory;
@@ -35,9 +36,12 @@ namespace Make10.ViewModels
 
             timer.Elapsed += (s, e) =>
             {
-                this.elapsedTime = this.elapsedTime.Add(TimeSpan.FromMilliseconds(100));
-                this.RaisePropertyChanged(()=>this.ElapsedTimeText);
-                (this.ShowAnswer as DelegateCommand).RaiseCanExecuteChanged();
+                if (this.elapsedTime < TimeAttackPageViewModel.timeLimit)
+                {
+                    this.elapsedTime = this.elapsedTime.Add(TimeSpan.FromMilliseconds(100));
+                    this.RaisePropertyChanged(() => this.ElapsedTimeText);
+                    (this.ShowAnswer as DelegateCommand).RaiseCanExecuteChanged();
+                }
             };
 
             this.Numbers = new NameCommand[]
@@ -76,7 +80,7 @@ namespace Make10.ViewModels
                        answerFormula == null ? "bug" : string.Join("→", answerFormula.Select(s=>$"[{s}]")),
                        () => {});
                },
-            () => this.elapsedTime >= TimeSpan.FromSeconds(200));
+            () => this.elapsedTime >= TimeAttackPageViewModel.timeLimit);
         }
 
         public ICommand Clear

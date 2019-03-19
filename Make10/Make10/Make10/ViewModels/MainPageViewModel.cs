@@ -130,6 +130,15 @@ namespace Make10.ViewModels
                 }
             });
 
+            this.ShowResult = new DelegateCommand<User>(u =>
+            {
+                var items = resultService.ResultRecords[u].Items;
+                this.DisplayNotification<MainPageViewModel>(
+                    $"{u.Name}の結果",
+                    string.Join(Environment.NewLine, Enumerable.Range(0, items.Count()).Select(i => $"{i + 1}:{items.ElementAt(i).TimeText}")),
+                    () => { });
+            });
+
             this.resultService = resultService;
         }
 
@@ -190,6 +199,11 @@ namespace Make10.ViewModels
         }
 
         public ICommand ReadImage
+        {
+            get;
+        }
+
+        public ICommand ShowResult
         {
             get;
         }

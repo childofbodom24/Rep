@@ -47,8 +47,8 @@
                                                 Command="{Binding Source={x:Reference content}, Path=BindingContext.ReadImage}" 
                                                 CommandParameter="{Binding Key}"/>
                                     </StackLayout.GestureRecognizers>
-                                    <Label Text="👤" FontSize="Large" VerticalOptions="Center" IsVisible="{Binding Key.ImageFilePath, Converter={StaticResource converterIsNull}}" />
-                                    <Image Source="{Binding Key.Image}" WidthRequest="50" IsVisible="{Binding Key.ImageFilePath, Converter={StaticResource converterIsNull}, ConverterParameter='True'}" Margin="0,10,0,10" />
+                                    <Label WidthRequest="40" Text="👤" FontSize="Large" VerticalOptions="Center" HorizontalTextAlignment="Center" IsVisible="{Binding Key.ImageFilePath, Converter={StaticResource converterIsNull}}" />
+                                    <Image WidthRequest="40" Source="{Binding Key.Image}"  IsVisible="{Binding Key.ImageFilePath, Converter={StaticResource converterIsNull}, ConverterParameter='True'}" Margin="0,10,0,10" />
                                 </StackLayout>
                                 <Label Grid.Column="1" Text="{Binding Key.Name}" Margin="0,10,10,10" VerticalOptions="Center" FontSize="Large" />
                                 <Label Grid.Column="2" Text="{Binding Value.WinCountText}" Margin="10" VerticalOptions="Center" HorizontalTextAlignment="Start" TextColor="YellowGreen" FontSize="Large" />
@@ -58,15 +58,17 @@
                                         CommandParameter="{Binding Key}" 
                                         IsVisible="{Binding Value.Completed, Converter={StaticResource converterNegative}}"/>
                                     <Label VerticalOptions="Center" 
-                                       HorizontalOptions="Center"
-                                       IsVisible="{Binding Value.Completed}"
-                                       Text="TIME:"/>
-                                    <Label VerticalOptions="Center" 
                                        HorizontalOptions="Center" 
                                        Text="{Binding Value.ResultTimeText}" 
                                        FontSize="Large"
                                        TextColor="DarkGreen"
-                                       IsVisible="{Binding Value.Completed}" />
+                                       IsVisible="{Binding Value.Completed}">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Source={x:Reference content}, Path=BindingContext.ShowResult}" 
+                                                CommandParameter="{Binding Key}"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
                                 </StackLayout>
                             </Grid>
                         </ViewCell>
