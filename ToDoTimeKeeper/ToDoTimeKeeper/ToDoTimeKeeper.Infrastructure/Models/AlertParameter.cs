@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 
-namespace Make10.Models
+namespace ToDoTimeKeeper.Models
 {
     public class AlertParameter
     {

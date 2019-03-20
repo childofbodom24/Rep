@@ -13,4 +13,10 @@
     <ProjectReference Include="..\ToDoTimeKeeper.Infrastructure\ToDoTimeKeeper.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Views\MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

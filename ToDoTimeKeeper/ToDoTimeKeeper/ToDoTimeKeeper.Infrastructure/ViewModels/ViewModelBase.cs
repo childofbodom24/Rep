@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using Xamarin.Forms;
-using Make10.Models;
+using ToDoTimeKeeper.Models;
 
 namespace ToDoTimeKeeper.Infrastructure.ViewModels
 {
