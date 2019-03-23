@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
+using ToDoTimeKeeper.Infrastructure.Models;
 using ToDoTimeKeeper.Infrastructure.ViewModels;
 using ToDoTimeKeeper.Models;
 
@@ -14,15 +16,14 @@ namespace ToDoTimeKeeper.ViewModels
     {
         public MainPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            this.Title = "XXX";
-            this.UserTabDataList = new ObservableCollection<UserTabData>(new UserTabData[]
+            this.Title = "ToDoTimeKeeper";
+            
+            this.GotoSelectTodoPage = new DelegateCommand(() =>
             {
-                new UserTabData(){ Username = "AAA" },
-                new UserTabData(){ Username = "BBB" },
-                new UserTabData(){ Username = "CCC" }
+                NavigationService.NavigateAsync("SelectTodoPage");
             });
         }
 
-        public ObservableCollection<UserTabData> UserTabDataList { get; set; }
+        public ICommand GotoSelectTodoPage { get; }
     }
 }

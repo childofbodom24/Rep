@@ -1,5 +1,7 @@
 ﻿using Prism;
 using Prism.Ioc;
+using ToDoTimeKeeper.Infrastructure.Interfaces;
+using ToDoTimeKeeper.Services;
 using ToDoTimeKeeper.ViewModels;
 using ToDoTimeKeeper.Views;
 using Xamarin.Forms;
@@ -29,7 +31,10 @@ namespace ToDoTimeKeeper
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterSingleton<ISettingService, SettingService>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<SettingPage, SettingPageViewModel>();
+            containerRegistry.RegisterForNavigation<SelectTodoPage, SelectTodoPageViewModel>();
         }
     }
 }

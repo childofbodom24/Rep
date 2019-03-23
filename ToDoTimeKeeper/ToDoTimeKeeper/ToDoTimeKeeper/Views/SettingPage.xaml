@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:ts="clr-namespace:ToDoTimeKeeper.TemplateSelectors"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="ToDoTimeKeeper.Views.SettingPage"
+             Title="{Binding ToDoData.NameTag.Data}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="settingBoolTemplate">
+                <ViewCell>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label VerticalOptions="Center" Grid.Column="0" Text="{Binding Name}" />
+                        <StackLayout Grid.Column="1" Orientation="Horizontal">
+                            <Switch IsToggled="{Binding IsChecked}" IsVisible="{Binding Checkable}" />
+                        </StackLayout>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="settingTimeTemplate">
+                <ViewCell>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label VerticalOptions="Center" Grid.Column="0" Text="{Binding Name}" />
+                        <StackLayout Grid.Column="1" Orientation="Horizontal">
+                            <Switch x:Name="switch" IsToggled="{Binding IsChecked}" IsVisible="{Binding Checkable}" />
+                            <TimePicker Time="{Binding Data}" IsEnabled="{Binding IsEnabled}" />
+                        </StackLayout>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="settingStringTemplate">
+                <ViewCell>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label VerticalOptions="Center" Grid.Column="0" Text="{Binding Name}" />
+                        <StackLayout Grid.Column="1" Orientation="Horizontal">
+                            <Switch IsToggled="{Binding IsChecked}" IsVisible="{Binding Checkable}" />
+                            <Entry Text="{Binding Data}" IsEnabled="{Binding IsEnabled}" />
+                        </StackLayout>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+            <ts:SettingItemTemplateSelector x:Key="settingItemTemplateSelector" 
+                                                  SettingBoolTemplate="{StaticResource settingBoolTemplate}"
+                                                  SettingTimeTemplate="{StaticResource settingTimeTemplate}"
+                                                  SettingStringTemplate="{StaticResource settingStringTemplate}"/>
+            <ControlTemplate x:Key="settingItemTemplate">
+                <ViewCell>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="{Binding Name}" />
+                        <StackLayout Grid.Column="1" Orientation="Vertical">
+                            <Switch IsToggled="{Binding IsChecked}" IsVisible="{Binding Checkable}" />
+                            <ContentView ControlTemplate="{StaticResource settingItemTemplateSelector}" BindingContext="{TemplateBinding BindingContext}" />
+                        </StackLayout>
+                    </Grid>
+                </ViewCell>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Orientation="Vertical">
+        <ListView ItemTemplate="{StaticResource settingItemTemplateSelector}" 
+                      ItemsSource="{Binding ToDoData.SettingItems}"
+                      SelectionMode="None">
+        </ListView>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+            <Button Text="OK" Command="{Binding Close}" CommandParameter="True" />
+            <Button Text="CANCEL" Command="{Binding Close}" CommandParameter="False" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

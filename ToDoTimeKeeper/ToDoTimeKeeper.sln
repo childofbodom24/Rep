@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoTimeKeeper", "ToDoTimeKeeper\ToDoTimeKeeper\ToDoTimeKeeper.csproj", "{0193EE3E-4105-4F24-B1CC-325E5EF2EDC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoTimeKeeper", "ToDoTimeKeeper\ToDoTimeKeeper\ToDoTimeKeeper.csproj", "{0193EE3E-4105-4F24-B1CC-325E5EF2EDC9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoTimeKeeper.Android", "ToDoTimeKeeper\ToDoTimeKeeper.Android\ToDoTimeKeeper.Android.csproj", "{86F690B7-A6B9-44FD-A040-D3F4ABB6D1C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoTimeKeeper.Infrastructure", "ToDoTimeKeeper\ToDoTimeKeeper.Infrastructure\ToDoTimeKeeper.Infrastructure.csproj", "{4E054CAC-5E81-4F34-8FFC-D3860666362F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoTimeKeeper.Infrastructure", "ToDoTimeKeeper\ToDoTimeKeeper.Infrastructure\ToDoTimeKeeper.Infrastructure.csproj", "{4E054CAC-5E81-4F34-8FFC-D3860666362F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

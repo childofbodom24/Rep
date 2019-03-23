@@ -2,19 +2,22 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+            xmlns:ictrl="clr-namespace:ToDoTimeKeeper.Infrastructure.Controls;assembly=ToDoTimeKeeper.Infrastructure"
+            xmlns:ts="clr-namespace:ToDoTimeKeeper.TemplateSelectors"
             prism:ViewModelLocator.AutowireViewModel="True"
             x:Class="ToDoTimeKeeper.Views.MainPage"
-            Title="{Binding Title}"
-            ItemsSource="{Binding UserTabDataList}">
+            Title="{Binding Title}">
+    <TabbedPage.Resources>
+    </TabbedPage.Resources>
     <TabbedPage.ToolbarItems>
-        <ToolbarItem Text="≡" />
+        <ToolbarItem Text="設定" Command="{Binding GotoSelectTodoPage}" />
     </TabbedPage.ToolbarItems>
-    <TabbedPage.ItemTemplate>
-        <DataTemplate>
-            <ContentPage Title="{Binding Username}">
-                <Label Text="{Binding Username}" />
-            </ContentPage>
-        </DataTemplate>
-    </TabbedPage.ItemTemplate>
+    <ContentPage Title="月"/>
+    <ContentPage Title="火"/>
+    <ContentPage Title="水"/>
+    <ContentPage Title="木"/>
+    <ContentPage Title="金"/>
+    <ContentPage Title="土"/>
+    <ContentPage Title="日"/>
 </TabbedPage>
   

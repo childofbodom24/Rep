@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             Title="{Binding Title}"
+             x:Class="ToDoTimeKeeper.Views.SelectTodoPage"
+             x:Name="content">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0" ItemsSource="{Binding ToDoDataList}" SelectionMode="None" RowHeight="80">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Margin="5" HorizontalOptions="FillAndExpand" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="{Binding NameTag.Data}" Margin="0,10,10,10" VerticalOptions="Center" FontSize="Large" />
+                            <StackLayout Orientation="Horizontal" Grid.Column="1">
+                                <Button Text="✎編集" 
+                                        Command="{Binding Source={x:Reference content}, Path=BindingContext.EditToDo}" 
+                                        CommandParameter="{Binding}" />
+                                <Button Text="⊖削除" 
+                                        Command="{Binding Source={x:Reference content}, Path=BindingContext.DeleteToDo}" 
+                                        CommandParameter="{Binding}" />
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Grid.Row="1" Text="⊕追加" Command="{Binding AddToDo}" />
+    </Grid>
+</ContentPage>
