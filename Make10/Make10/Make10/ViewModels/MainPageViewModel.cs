@@ -23,15 +23,21 @@ namespace Make10.ViewModels
         private bool forAdd;
         private KeyValuePair<User, ResultRecord> selectedRecord;
         private KeyValuePair<User, ResultRecord> nullRecord = new KeyValuePair<User, ResultRecord>();
+        private bool isNavigating = false;
 
         [InjectionConstructor]
         public MainPageViewModel(INavigationService navigationService, IUserService userService, IResultService resultService)
             : base(navigationService)
         {
-            this.StartTimeAttack = new DelegateCommand<User>(u =>
+            this.StartTimeAttack = new DelegateCommand<User>(async u =>
             {
-                userService.PlayingUser = u;
-                navigationService.NavigateAsync("TimeAttackPage");
+                if (!this.isNavigating)
+                {
+                    this.isNavigating = true;
+                    userService.PlayingUser = u;
+                    await navigationService.NavigateAsync("TimeAttackPage");
+                    this.isNavigating = false;
+                }
             });
 
             this.AddUser = new DelegateCommand(() =>
